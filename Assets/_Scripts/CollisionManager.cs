@@ -176,10 +176,18 @@ public class CollisionManager : MonoBehaviour
                     a.gameObject.GetComponent<RigidBody3D>().Stop();
                     a.isGrounded = true;
                 }
-                
-                if(a.name == "Player")
+
+                if ((contactB.face != Vector3.down)&&(contactB.face != Vector3.up))
                 {
-                    _moveCube(b, face * penetration);
+                    if(a.name == "Player")
+                    {
+                        _moveCube(b, face * penetration);
+                    }
+                    else
+                    {
+                        _moveCube(a, -0.5f * face * penetration);
+                        _moveCube(b, 0.5f * face * penetration);
+                    }
                 }
 
                 // add the new contact
