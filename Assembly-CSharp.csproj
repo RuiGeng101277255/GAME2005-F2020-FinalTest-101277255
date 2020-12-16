@@ -65,6 +65,7 @@
     <Compile Include="Assets\_Scripts\PlayerBehaviour.cs" />
     <Compile Include="Assets\_Scripts\CubeBehaviour.cs" />
     <Compile Include="Assets\_Scripts\SceneManager.cs" />
+    <Compile Include="Assets\_Scripts\ShowCursor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -21,9 +21,11 @@ public class PlayerBehaviour : MonoBehaviour
     public CubeBehaviour cube;
     public Camera playerCam;
 
+    public SceneManager m_sceneManager;
+
     void start()
     {
-
+        //Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -86,6 +88,11 @@ public class PlayerBehaviour : MonoBehaviour
                 var tempBullet = bulletManager.GetBullet(bulletSpawn.position, bulletSpawn.forward);
                 tempBullet.transform.SetParent(bulletManager.gameObject.transform);
             }
+        }
+        if (Input.GetKeyDown(KeyCode.P)) //key p to go back to main scene
+        {
+            m_sceneManager.openScene("StartScene");
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("StartScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
     }
 
