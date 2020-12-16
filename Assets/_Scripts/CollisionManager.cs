@@ -177,6 +177,10 @@ public class CollisionManager : MonoBehaviour
                     a.isGrounded = true;
                 }
                 
+                if(a.name == "Player")
+                {
+                    _moveCube(b, face * penetration);
+                }
 
                 // add the new contact
                 a.contacts.Add(contactB);
@@ -199,5 +203,10 @@ public class CollisionManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public static void _moveCube(CubeBehaviour c, Vector3 pos)
+    {
+        c.transform.position += pos;
     }
 }
