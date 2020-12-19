@@ -8,6 +8,7 @@ public class CollisionManager : MonoBehaviour
 {
     public CubeBehaviour[] cubes;
     public BulletBehaviour[] spheres;
+    public BulletBehaviour[] b_cubes;
 
     private static Vector3[] faces;
 
@@ -28,6 +29,7 @@ public class CollisionManager : MonoBehaviour
     void Update()
     {
         spheres = FindObjectsOfType<BulletBehaviour>();
+        b_cubes = FindObjectsOfType<BulletBehaviour>();
 
         // check each AABB with every other AABB in the scene
         for (int i = 0; i < cubes.Length; i++)
@@ -42,15 +44,40 @@ public class CollisionManager : MonoBehaviour
         }
 
         // Check each sphere against each AABB in the scene
-        foreach (var sphere in spheres)
+        //foreach (var sphere in spheres)
+        //{
+        //    foreach (var cube in cubes)
+        //    {
+        //        if (cube.name != "Player")
+        //        {
+        //            CheckSphereAABB(sphere, cube);
+        //        }
+                
+        //    }
+        //}
+
+        foreach (var bullets in b_cubes)
         {
+            //if(bullets != null)
+            //{
+            //    bullet_c.transform.position = bullets.transform.position;
+            //    bullet_c.transform.SetParent(bullets.transform);
+            //}
+            //foreach (var cube in cubes)
+            //{
+            //    if (cube.name != "Player")
+            //    {
+            //        CheckCubeAABB(bullets, bullet_c, cube);
+            //    }
+
+            //}
             foreach (var cube in cubes)
             {
                 if (cube.name != "Player")
                 {
-                    CheckSphereAABB(sphere, cube);
+                    CheckCubeAABB(bullets, cube);
                 }
-                
+
             }
         }
 
@@ -103,7 +130,58 @@ public class CollisionManager : MonoBehaviour
         }
 
     }
-    
+
+    //public static void CheckCubeAABB(BulletBehaviour ab, CubeBehaviour a, CubeBehaviour b)
+    public static void CheckCubeAABB(BulletBehaviour ab, CubeBehaviour b)
+    {
+        //var a = new CubeBehaviour();
+        //a.transform.position = ab.transform.position;
+        var amin = Vector3.Scale(new Vector3(0.0f, 0.0f, 0.0f), ab.transform.localScale) + ab.transform.position;
+        var amax = Vector3.Scale(new Vector3(ab.radius, ab.radius, ab.radius), ab.transform.localScale) + ab.transform.position;
+        //a.transform.SetParent(ab.transform);
+        //a.transform.position = ab.transform.position;
+        //a.transform.SetParent(ab.transform);
+
+        Contact contactB = new Contact(b);
+
+        if ((amin.x <= b.max.x && amax.x >= b.min.x) &&
+            (amin.y <= b.max.y && amax.y >= b.min.y) &&
+            (amin.z <= b.max.z && amax.z >= b.min.z))
+        {
+            // determine the distances between the contact extents
+            float[] distances = {
+                (b.max.x - amin.x),
+                (amax.x - b.min.x),
+                (b.max.y - amin.y),
+                (amax.y - b.min.y),
+                (b.max.z - amin.z),
+                (amax.z - b.min.z)
+            };
+
+            float penetration = float.MaxValue;
+            Vector3 face = Vector3.zero;
+
+            // check each face to see if it is the one that connected
+            for (int i = 0; i < 6; i++)
+            {
+                if (distances[i] < penetration)
+                {
+                    // determine the penetration distance
+                    penetration = distances[i];
+                    face = faces[i];
+                }
+            }
+
+            // set the contact properties
+            contactB.face = face;
+            contactB.penetration = penetration;
+
+
+            ReflectCube(ab, face);
+        }
+
+    }
+
     // This helper function reflects the bullet when it hits an AABB face
     private static void Reflect(BulletBehaviour s)
     {
@@ -116,6 +194,22 @@ public class CollisionManager : MonoBehaviour
             s.direction = new Vector3(-s.direction.x, s.direction.y, s.direction.z);
         }
         else if ((s.collisionNormal == Vector3.up) || (s.collisionNormal == Vector3.down))
+        {
+            s.direction = new Vector3(s.direction.x, -s.direction.y, s.direction.z);
+        }
+    }
+
+    private static void ReflectCube(BulletBehaviour s, Vector3 f)
+    {
+        if ((f == Vector3.forward) || (f == Vector3.back))
+        {
+            s.direction = new Vector3(s.direction.x, s.direction.y, -s.direction.z);
+        }
+        else if ((f == Vector3.right) || (f == Vector3.left))
+        {
+            s.direction = new Vector3(-s.direction.x, s.direction.y, s.direction.z);
+        }
+        else if ((f == Vector3.up) || (f == Vector3.down))
         {
             s.direction = new Vector3(s.direction.x, -s.direction.y, s.direction.z);
         }
