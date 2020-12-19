@@ -49,26 +49,53 @@ public class PlayerBehaviour : MonoBehaviour
             }
 
         }
+        //if (Input.GetAxisRaw("Horizontal") > 0.0f)
+        //{
+        //    // move right
+        //    body.velocity += 0.1f * new Vector3(playerCam.transform.right.x, 0.0f, playerCam.transform.right.x) * 0.1f * speed * Time.deltaTime;// - new Vector3(0.0f, playerCam.transform.right.y * 0.1f * speed * Time.deltaTime, 0.1f * -body.velocity.z);
+        //}
+        //else if (Input.GetAxisRaw("Horizontal") < 0.0f)
+        //{
+        //    // move left
+        //    body.velocity += -0.1f * new Vector3(playerCam.transform.right.x, 0.0f, playerCam.transform.right.z) * 0.1f * speed * Time.deltaTime;// - new Vector3(0.0f, -playerCam.transform.right.y * 0.1f * speed * Time.deltaTime, 0.1f * body.velocity.z);
+        //}
+
+        //if (Input.GetAxisRaw("Vertical") > 0.0f)
+        //{
+        //    // move forward
+        //    body.velocity += 0.1f* new Vector3(playerCam.transform.forward.x, 0.0f, playerCam.transform.forward.z) * 0.1f * speed * Time.deltaTime;// - new Vector3(0.1f * -body.velocity.x, playerCam.transform.forward.y * 0.1f * speed * Time.deltaTime, 0.0f);
+        //}
+        //else if (Input.GetAxisRaw("Vertical") < 0.0f)
+        //{
+        //    // move Back
+        //    body.velocity += -0.1f * new Vector3(playerCam.transform.forward.x, 0.0f, playerCam.transform.forward.z) * 0.1f * speed * Time.deltaTime;// - new Vector3(0.1f * body.velocity.x, -playerCam.transform.forward.y * 0.1f * speed * Time.deltaTime, 0.0f);
+        //}
+
+        Vector3 dirVector = playerCam.transform.forward;
+        float sepAngleX = Mathf.Acos((dirVector.x * 1.0f) / dirVector.magnitude);
+        float sepAngleZ = Mathf.Acos((dirVector.z * 1.0f) / dirVector.magnitude);
+
         if (Input.GetAxisRaw("Horizontal") > 0.0f)
         {
             // move right
-            body.velocity += 0.1f * new Vector3(playerCam.transform.right.x, 0.0f, playerCam.transform.right.x) * 0.1f * speed * Time.deltaTime;// - new Vector3(0.0f, playerCam.transform.right.y * 0.1f * speed * Time.deltaTime, 0.1f * -body.velocity.z);
+            body.velocity += 0.1f * new Vector3(1.0f, 0.0f, 0.0f) * 0.1f * speed * Time.deltaTime;
+
         }
         else if (Input.GetAxisRaw("Horizontal") < 0.0f)
         {
             // move left
-            body.velocity += -0.1f * new Vector3(playerCam.transform.right.x, 0.0f, -playerCam.transform.right.z) * 0.1f * speed * Time.deltaTime;// - new Vector3(0.0f, -playerCam.transform.right.y * 0.1f * speed * Time.deltaTime, 0.1f * body.velocity.z);
+            body.velocity += 0.1f * new Vector3(-1.0f, 0.0f, 0.0f) * 0.1f * speed * Time.deltaTime;
         }
 
         if (Input.GetAxisRaw("Vertical") > 0.0f)
         {
             // move forward
-            body.velocity += 0.1f* new Vector3(playerCam.transform.forward.x, 0.0f, playerCam.transform.forward.z) * 0.1f * speed * Time.deltaTime;// - new Vector3(0.1f * -body.velocity.x, playerCam.transform.forward.y * 0.1f * speed * Time.deltaTime, 0.0f);
+            body.velocity += 0.1f * new Vector3(0.0f, 0.0f, 1.0f) * 0.1f * speed * Time.deltaTime;
         }
         else if (Input.GetAxisRaw("Vertical") < 0.0f)
         {
             // move Back
-            body.velocity += -0.1f * new Vector3(-playerCam.transform.forward.x, 0.0f, playerCam.transform.forward.z) * 0.1f * speed * Time.deltaTime;// - new Vector3(0.1f * body.velocity.x, -playerCam.transform.forward.y * 0.1f * speed * Time.deltaTime, 0.0f);
+            body.velocity += 0.1f * new Vector3(0.0f, 0.0f, -1.0f) * 0.1f * speed * Time.deltaTime;
         }
 
         //body.velocity = Vector3.Lerp(body.velocity, Vector3.zero, 0.9f);
