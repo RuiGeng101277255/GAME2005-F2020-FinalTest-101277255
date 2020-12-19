@@ -57,7 +57,7 @@ public class PlayerBehaviour : MonoBehaviour
         else if (Input.GetAxisRaw("Horizontal") < 0.0f)
         {
             // move left
-            body.velocity += -0.1f * new Vector3(playerCam.transform.right.x, 0.0f, playerCam.transform.right.z) * 0.1f * speed * Time.deltaTime;// - new Vector3(0.0f, -playerCam.transform.right.y * 0.1f * speed * Time.deltaTime, 0.1f * body.velocity.z);
+            body.velocity += -0.1f * new Vector3(playerCam.transform.right.x, 0.0f, -playerCam.transform.right.z) * 0.1f * speed * Time.deltaTime;// - new Vector3(0.0f, -playerCam.transform.right.y * 0.1f * speed * Time.deltaTime, 0.1f * body.velocity.z);
         }
 
         if (Input.GetAxisRaw("Vertical") > 0.0f)
@@ -68,7 +68,7 @@ public class PlayerBehaviour : MonoBehaviour
         else if (Input.GetAxisRaw("Vertical") < 0.0f)
         {
             // move Back
-            body.velocity += -0.1f * new Vector3(playerCam.transform.forward.x, 0.0f, playerCam.transform.forward.z) * 0.1f * speed * Time.deltaTime;// - new Vector3(0.1f * body.velocity.x, -playerCam.transform.forward.y * 0.1f * speed * Time.deltaTime, 0.0f);
+            body.velocity += -0.1f * new Vector3(-playerCam.transform.forward.x, 0.0f, playerCam.transform.forward.z) * 0.1f * speed * Time.deltaTime;// - new Vector3(0.1f * body.velocity.x, -playerCam.transform.forward.y * 0.1f * speed * Time.deltaTime, 0.0f);
         }
 
         //body.velocity = Vector3.Lerp(body.velocity, Vector3.zero, 0.9f);
