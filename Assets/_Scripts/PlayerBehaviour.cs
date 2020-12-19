@@ -45,7 +45,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (Input.GetAxisRaw("Jump") > 0.0f)
             {
-                body.velocity = transform.up * speed * 0.05f * Time.deltaTime;
+                body.velocity = transform.up * speed * 0.03f * Time.deltaTime;
             }
 
         }
@@ -72,31 +72,58 @@ public class PlayerBehaviour : MonoBehaviour
         //}
 
         Vector3 dirVector = playerCam.transform.forward;
-        float sepAngleX = Mathf.Acos((dirVector.x * 1.0f) / dirVector.magnitude);
-        float sepAngleZ = Mathf.Acos((dirVector.z * 1.0f) / dirVector.magnitude);
+
+        //Normalize direction vector
+        Vector3 norm_dirVector = dirVector / dirVector.magnitude;
+        norm_dirVector.y = 0.0f;
+        //Perpendicular direction vector
+        Vector3 perp_normVec = new Vector3(norm_dirVector.z, 0.0f, -norm_dirVector.x);
 
         if (Input.GetAxisRaw("Horizontal") > 0.0f)
         {
             // move right
-            body.velocity += 0.1f * new Vector3(1.0f, 0.0f, 0.0f) * 0.1f * speed * Time.deltaTime;
+            body.velocity += 0.1f * perp_normVec * 0.1f * speed * Time.deltaTime;
 
         }
         else if (Input.GetAxisRaw("Horizontal") < 0.0f)
         {
             // move left
-            body.velocity += 0.1f * new Vector3(-1.0f, 0.0f, 0.0f) * 0.1f * speed * Time.deltaTime;
+            body.velocity += -0.1f * perp_normVec * 0.1f * speed * Time.deltaTime;
         }
 
         if (Input.GetAxisRaw("Vertical") > 0.0f)
         {
             // move forward
-            body.velocity += 0.1f * new Vector3(0.0f, 0.0f, 1.0f) * 0.1f * speed * Time.deltaTime;
+            body.velocity += 0.1f * norm_dirVector * 0.1f * speed * Time.deltaTime;
         }
         else if (Input.GetAxisRaw("Vertical") < 0.0f)
         {
             // move Back
-            body.velocity += 0.1f * new Vector3(0.0f, 0.0f, -1.0f) * 0.1f * speed * Time.deltaTime;
+            body.velocity += -0.1f * norm_dirVector * 0.1f * speed * Time.deltaTime;
         }
+
+        //if (Input.GetAxisRaw("Horizontal") > 0.0f)
+        //{
+        //    // move right
+        //    body.velocity += 0.1f * new Vector3((1.0f - scalarX), 0.0f, scalarZ) * 0.1f * speed * Time.deltaTime;
+
+        //}
+        //else if (Input.GetAxisRaw("Horizontal") < 0.0f)
+        //{
+        //    // move left
+        //    body.velocity += -0.1f * new Vector3(scalarX, 0.0f, scalarZ) * 0.1f * speed * Time.deltaTime;
+        //}
+
+        //if (Input.GetAxisRaw("Vertical") > 0.0f)
+        //{
+        //    // move forward
+        //    body.velocity += 0.1f * new Vector3(scalarX, 0.0f, scalarZ) * 0.1f * speed * Time.deltaTime;
+        //}
+        //else if (Input.GetAxisRaw("Vertical") < 0.0f)
+        //{
+        //    // move Back
+        //    body.velocity += -0.1f * new Vector3(scalarX, 0.0f, scalarZ) * 0.1f * speed * Time.deltaTime;
+        //}
 
         //body.velocity = Vector3.Lerp(body.velocity, Vector3.zero, 0.9f);
         body.velocity = new Vector3 (body.velocity.x * 0.9f, body.velocity.y, body.velocity.z * 0.9f);
