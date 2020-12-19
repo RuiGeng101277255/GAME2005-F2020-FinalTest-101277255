@@ -137,7 +137,7 @@ public class CollisionManager : MonoBehaviour
         //var a = new CubeBehaviour();
         //a.transform.position = ab.transform.position;
         var amin = Vector3.Scale(new Vector3(0.0f, 0.0f, 0.0f), ab.transform.localScale) + ab.transform.position;
-        var amax = Vector3.Scale(new Vector3(ab.radius, ab.radius, ab.radius), ab.transform.localScale) + ab.transform.position;
+        var amax = Vector3.Scale(new Vector3(ab.radius, ab.radius, ab.radius)* 2.0f, ab.transform.localScale) + ab.transform.position;
         //a.transform.SetParent(ab.transform);
         //a.transform.position = ab.transform.position;
         //a.transform.SetParent(ab.transform);
