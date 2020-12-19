@@ -64,12 +64,15 @@ public class CubeBehaviour : MonoBehaviour
     public Bounds bounds;
     public bool isGrounded;
 
+    public RigidBody3D m_rigidbody;
+
 
     // Start is called before the first frame update
     void Start()
     {
         debug = false;
         meshFilter = GetComponent<MeshFilter>();
+        m_rigidbody = GetComponent<RigidBody3D>();
 
         bounds = meshFilter.mesh.bounds;
         size = bounds.size;

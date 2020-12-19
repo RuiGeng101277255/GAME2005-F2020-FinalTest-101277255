@@ -273,14 +273,17 @@ public class CollisionManager : MonoBehaviour
 
                 if ((contactB.face != Vector3.down)&&(contactB.face != Vector3.up))
                 {
-                    if(a.name == "Player")
+                    if((a.m_rigidbody.bodyType == BodyType.DYNAMIC)&&(b.m_rigidbody.bodyType == BodyType.DYNAMIC))
                     {
-                        _moveCube(b, face * penetration);
-                    }
-                    else
-                    {
-                        _moveCube(a, -0.5f * face * penetration);
-                        _moveCube(b, 0.5f * face * penetration);
+                        if (a.name == "Player")
+                        {
+                            _moveCube(b, face * penetration);
+                        }
+                        else
+                        {
+                            _moveCube(a, -0.5f * face * penetration);
+                            _moveCube(b, 0.5f * face * penetration);
+                        }
                     }
                 }
 
