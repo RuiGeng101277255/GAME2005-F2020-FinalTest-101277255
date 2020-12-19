@@ -57,6 +57,22 @@ public class RigidBody3D : MonoBehaviour
                     transform.position += velocity * timer;
                 }
             }
+            if (Mathf.Abs(velocity.x) < 0.1f)
+            {
+                velocity.x = 0.0f;
+            }
+            else
+            {
+                velocity.x *= 0.95f;
+            }
+            if (Mathf.Abs(velocity.z) < 0.1f)
+            {
+                velocity.z = 0.0f;
+            }
+            else
+            {
+                velocity.z *= 0.95f;
+            }
         }
     }
 

@@ -273,7 +273,7 @@ public class CollisionManager : MonoBehaviour
 
                 if ((contactB.face != Vector3.down)&&(contactB.face != Vector3.up))
                 {
-                    if((a.m_rigidbody.bodyType == BodyType.DYNAMIC)&&(b.m_rigidbody.bodyType == BodyType.DYNAMIC))
+                    if((a.gameObject.GetComponent<RigidBody3D>().bodyType == BodyType.DYNAMIC)&&(b.gameObject.GetComponent<RigidBody3D>().bodyType == BodyType.DYNAMIC))
                     {
                         if (a.name == "Player")
                         {
@@ -313,5 +313,6 @@ public class CollisionManager : MonoBehaviour
     public static void _moveCube(CubeBehaviour c, Vector3 pos)
     {
         c.transform.position += pos;
+        //c.gameObject.GetComponent<RigidBody3D>().velocity += pos;
     }
 }

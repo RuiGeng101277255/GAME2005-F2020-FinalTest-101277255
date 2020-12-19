@@ -45,7 +45,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (Input.GetAxisRaw("Jump") > 0.0f)
             {
-                body.velocity = transform.up * speed * 0.03f * Time.deltaTime;
+                body.velocity = transform.up * speed * 0.05f * Time.deltaTime;
             }
 
         }
@@ -82,24 +82,24 @@ public class PlayerBehaviour : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") > 0.0f)
         {
             // move right
-            body.velocity += 0.1f * perp_normVec * 0.1f * speed * Time.deltaTime;
+            body.velocity += 1.0f * perp_normVec * 0.05f * speed * Time.deltaTime;
 
         }
         else if (Input.GetAxisRaw("Horizontal") < 0.0f)
         {
             // move left
-            body.velocity += -0.1f * perp_normVec * 0.1f * speed * Time.deltaTime;
+            body.velocity += -1.0f * perp_normVec * 0.05f * speed * Time.deltaTime;
         }
 
         if (Input.GetAxisRaw("Vertical") > 0.0f)
         {
             // move forward
-            body.velocity += 0.1f * norm_dirVector * 0.1f * speed * Time.deltaTime;
+            body.velocity += 1.0f * norm_dirVector * 0.05f * speed * Time.deltaTime;
         }
         else if (Input.GetAxisRaw("Vertical") < 0.0f)
         {
             // move Back
-            body.velocity += -0.1f * norm_dirVector * 0.1f * speed * Time.deltaTime;
+            body.velocity += -1.0f * norm_dirVector * 0.05f * speed * Time.deltaTime;
         }
 
         //if (Input.GetAxisRaw("Horizontal") > 0.0f)
